@@ -5,8 +5,8 @@ GeoShareBackend\src\main\resources\META-INF
 
 persistence.xml (replace {xxx}):
 
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
-
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence"
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence 
