@@ -21,7 +21,7 @@ Use Maven to build:
 run as a regular java application (no need for server, the application has Tomcat embedded)
 
 The application works as code first. If you dont want this then remove this from the persistence.xml below.
-><property name="hibernate.hbm2ddl.auto" value="update" />
+>hibernate.hbm2ddl.auto
 
 ###persistence.xml (replace {xxx}):
 ```xml
