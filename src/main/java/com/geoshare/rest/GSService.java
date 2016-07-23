@@ -47,7 +47,7 @@ public class GSService {
 		  note.setText(text);
 		  note.setLatitude(latitude);
 		  note.setLongitude(longitude);
-		  note.persist();
+		  noteRepository.SaveNote(note);	
 		  
 		   return note;
 		  

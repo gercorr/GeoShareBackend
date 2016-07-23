@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="Note")
 public class Note {
-
+	
 	   @Id
 	   @GeneratedValue(strategy = GenerationType.AUTO) 		   
 	   private int id;
@@ -48,19 +48,4 @@ public class Note {
 			this.longitude = longitude;
 		}
 	
-		public void persist()
-		{
-	   
-			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "Hibernate_JPA" );
-			  			
-			EntityManager entitymanager = emfactory.createEntityManager( );
-			entitymanager.getTransaction( ).begin( );
-			  
-			entitymanager.persist( this );
-			entitymanager.getTransaction( ).commit( );
-			
-			entitymanager.close( );
-			emfactory.close( );
-		   
-	   }
 }
