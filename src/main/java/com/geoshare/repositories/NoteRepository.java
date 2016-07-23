@@ -21,7 +21,7 @@ public class NoteRepository implements INoteRepository {
 		public NoteRepository()
 		{
 
-		      EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "Eclipselink_JPA" );
+		      EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "Hibernate_JPA" );
 		      entityManager =  emfactory.createEntityManager();
 		}
 	

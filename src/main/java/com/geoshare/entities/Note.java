@@ -3,7 +3,7 @@ package com.geoshare.entities;
 import javax.persistence.*;
 
 @Entity
-@Table
+@Table(name="Note")
 public class Note {
 
 	   @Id
@@ -51,8 +51,8 @@ public class Note {
 		public void persist()
 		{
 	   
-			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "Eclipselink_JPA" );
-			  
+			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "Hibernate_JPA" );
+			  			
 			EntityManager entitymanager = emfactory.createEntityManager( );
 			entitymanager.getTransaction( ).begin( );
 			  
