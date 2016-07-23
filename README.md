@@ -1,7 +1,24 @@
 # GeoShareBackend
 
+Features: Spring Framework, Dependency Injection, Rest API, Embedded Tomcat, Object-Relational Mapping, MySql
+
+This is the backend to the android GeoShare app. It hosts two rest services used by the android app: 
+/rest/addNote?text={text}&lat={latitude}&long={longitude}
+/rest/getAllNotes
+
+JPA/Hibernate is used for Object-Relational Mapping to mysql db.
+
+The application uses spring framework for Dependency Injection.
+
 You will need a mysql instance running somewhere. If thats done then all you should need to do is add persistence.xml to here:
 GeoShareBackend\src\main\resources\META-INF
+
+Use Maven to build:
+mvn clean install
+
+run as a regular java application (no need for server, the application has Tomcat embedded)
+
+The application works as code first. If you dont want this then remove <property name="hibernate.hbm2ddl.auto" value="update" /> from the persistence.xml below.
 
 persistence.xml (replace {xxx}):
 ```xml
