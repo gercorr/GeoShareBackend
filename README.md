@@ -1,6 +1,6 @@
 # GeoShareBackend
 
-All you should need to do is add persistence.xml to here:
+You will need a mysql instance running somewhere. If thats done then all you should need to do is add persistence.xml to here:
 GeoShareBackend\src\main\resources\META-INF
 
 persistence.xml (replace {xxx}):
