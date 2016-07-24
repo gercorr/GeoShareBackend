@@ -11,6 +11,7 @@ public class ApplicationBinder extends ResourceConfig {
     public ApplicationBinder() {
         register(RequestContextFilter.class);
         packages("com.geoshare.rest");
+        packages("com.geoshare.xml_loader");
         register(LoggingFilter.class);
     }
 }
