@@ -40,15 +40,21 @@ The application works as code first. If you dont want this then remove this from
 
       <properties>
       
-         <property name="javax.persistence.jdbc.url" value="jdbc:mysql:{mysq path e.g. //localhost:1234/database_name}"/>
-         <property name="javax.persistence.jdbc.user" value="{mysq username}"/>
-         <property name="javax.persistence.jdbc.password" value="{mysq password)"/>
+        <property name="javax.persistence.jdbc.url" value="jdbc:mysql:{mysq path e.g. //localhost:1234/database_name}"/>
+        <property name="javax.persistence.jdbc.user" value="{mysq username}"/>
+        <property name="javax.persistence.jdbc.password" value="{mysq password)"/>
       
-         <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-         <property name="hibernate.show_sql" value="true" />
-		 <property name="hibernate.format_sql" value="true" />
-		 <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
-		 <property name="hibernate.hbm2ddl.auto" value="update" />
+         
+        <property name="hibernate.connection.provider_class" value = "org.hibernate.connection.C3P0ConnectionProvider"/>
+        <property name="hibernate.c3p0.timeout" value = "120"/>
+        <property name="hibernate.c3p0.idle_test_period" value = "300"/>
+        <property name="hibernate.c3p0.preferredTestQuery" value = "select 1;"/>
+         
+        <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+        <property name="hibernate.show_sql" value="true" />
+	<property name="hibernate.format_sql" value="true" />
+	<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+	<property name="hibernate.hbm2ddl.auto" value="update" />
       </properties>
       
    </persistence-unit>
