@@ -32,8 +32,8 @@ public class GSService
 	@Path("addNote")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Note addNote(@QueryParam("text") String text, @QueryParam("lat") float latitude,
-			@QueryParam("long") float longitude)
+	public Note addNote(@QueryParam("text") String text, @QueryParam("lat") double latitude,
+			@QueryParam("long") double longitude)
 	{
 		Note note = new Note();
 		note.setText(text);
@@ -53,12 +53,26 @@ public class GSService
 		return noteRepository.getAllNotes();
 	}
 
+	// http://localhost:8080/rest/getAllNotesWithinDistance?lat=53.32121&long=-6.33114&distance=0.02
+	@Path("/getAllNotesWithinDistance")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Note> getAllNotesWithinDistance(@QueryParam("lat") double latitude,
+			@QueryParam("long") double longitude, @QueryParam("distance") double distance)
+	{
+		return noteRepository.getAllNotesWithinDistance(latitude, longitude, distance);
+	}
+
 	@Path("/importXml")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Note> importXml(@QueryParam("password") String text)
 	{
-		if (text.equals("tempbiglongpasswordforimportxml"))//should put this in config. Doesnt matter files are deleted after import
+		if (text.equals("tempbiglongpasswordforimportxml"))// should put this in
+															// config. Doesnt
+															// matter files are
+															// deleted after
+															// import
 			xmlLoader.ImportFile();
 
 		return getAllNotes();
