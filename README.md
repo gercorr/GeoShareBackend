@@ -2,10 +2,12 @@
 
 ###Features: Spring Framework, Dependency Injection, Rest API, Embedded Tomcat, Object-Relational Mapping, MySql
 
-This is the backend to the android GeoShare app. It hosts two rest services used by the android app: 
+This is the backend to the android GeoShare app. It hosts three rest services used by the android app: 
 >/rest/addNote?text={text}&lat={latitude}&long={longitude}
 
 >/rest/getAllNotes
+
+>/rest/getAllNotesWithinDistance?lat={latitude}&long={longitude}&distance={distance}
 
 JPA/Hibernate is used for Object-Relational Mapping to mysql db.
 
