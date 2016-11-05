@@ -4,14 +4,17 @@ import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.spring.scope.RequestContextFilter;
 
-import javax.ws.rs.ApplicationPath;
+import com.geoshare.rest.GSService;
+import com.geoshare.xml_loader.XmlLoader;
 
-public class ApplicationBinder extends ResourceConfig {
+public class ApplicationBinder extends ResourceConfig
+{
 
-    public ApplicationBinder() {
-        register(RequestContextFilter.class);
-        packages("com.geoshare.rest");
-        packages("com.geoshare.xml_loader");
-        register(LoggingFilter.class);
-    }
+	public ApplicationBinder()
+	{
+		register(RequestContextFilter.class);
+		register(GSService.class);
+		register(XmlLoader.class);
+		register(LoggingFilter.class);
+	}
 }
