@@ -53,6 +53,14 @@ public class GSService
 		return noteRepository.getAllNotes();
 	}
 
+	@Path("/getTestNote")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Note getTestNote()
+	{
+		return noteRepository.getOneTestNote();
+	}
+
 	// http://localhost:8080/rest/getAllNotesWithinDistance?lat=53.32121&long=-6.33114&distance=0.02
 	@Path("/getAllNotesWithinDistance")
 	@GET

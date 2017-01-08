@@ -33,6 +33,15 @@ public class NoteRepository implements INoteRepository
 		return list;
 	}
 
+	public Note getOneTestNote()
+	{
+		EntityManager entityManager = emfactory.createEntityManager();
+		Query query = entityManager.createQuery("Select e from Note e").setMaxResults(1);
+		Note singleNote = (Note) query.getSingleResult();
+		entityManager.close();
+		return singleNote;
+	}
+
 	public List<Note> getAllNotesWithinDistance(double latitude, double longitude, double distance)
 	{
 		double xMinus02 = latitude - distance;
