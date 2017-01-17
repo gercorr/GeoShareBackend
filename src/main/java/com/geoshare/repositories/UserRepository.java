@@ -25,7 +25,7 @@ public class UserRepository {
     {
         EntityManager entityManager = emfactory.createEntityManager();
 
-        User user = null;
+        User user;
 
         try
         {
@@ -33,10 +33,10 @@ public class UserRepository {
                     .setParameter("googleInstanceId", temporaryUser.getGoogle_instance_id()).getSingleResult();
 
             entityManager.getTransaction().begin();
-            if(!temporaryUser.getEmail_address().isEmpty()) {
+            if(temporaryUser.getEmail_address() != null && !temporaryUser.getEmail_address().isEmpty()) {
                 user.setEmail_address(temporaryUser.getEmail_address());
             }
-            if(!temporaryUser.getNickname().isEmpty()) {
+            if(temporaryUser.getNickname() != null && !temporaryUser.getNickname().isEmpty()) {
                 user.setNickname(temporaryUser.getNickname());
             }
             entityManager.getTransaction().commit();

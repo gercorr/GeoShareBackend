@@ -1,13 +1,12 @@
 package com.geoshare.rest;
 
+import java.util.HashMap;
 import java.util.List;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
+import com.geoshare.pojos.NotesRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,25 +25,19 @@ public class NoteRestService
 	@Autowired
 	private XmlLoader xmlLoader;
 
-	// need to change this from get
-	// eg http://localhost:8080/rest/addNote?text=ger4&lat=53.3&long=-6.3
-	// @Path("addNote/text={text}&lat={lat}&long={long}")
 	@Path("addNote")
-	@GET
+	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Note addNote(@QueryParam("text") String text, @QueryParam("lat") double latitude,
-			@QueryParam("long") double longitude)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Note addNote(Note note)
 	{
-		Note note = new Note();
-		note.setText(text);
-		note.setLatitude(latitude);
-		note.setLongitude(longitude);
 		noteRepository.SaveNote(note);
 
 		return note;
 
 	}
 
+	//Used for browser testing only (to check everything is working)
 	@Path("/getAllNotes")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -53,22 +46,13 @@ public class NoteRestService
 		return noteRepository.getAllNotes();
 	}
 
-	@Path("/getTestNote")
-	@GET
+	@Path("getAllNotesWithinDistance")
+	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Note getTestNote()
+	@Consumes(MediaType.APPLICATION_JSON)
+	public List<Note> getAllNotesWithinDistance(NotesRequest noteRequest)
 	{
-		return noteRepository.getOneTestNote();
-	}
-
-	// http://localhost:8080/rest/getAllNotesWithinDistance?lat=53.32121&long=-6.33114&distance=0.02
-	@Path("/getAllNotesWithinDistance")
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<Note> getAllNotesWithinDistance(@QueryParam("lat") double latitude,
-			@QueryParam("long") double longitude, @QueryParam("distance") double distance)
-	{
-		return noteRepository.getAllNotesWithinDistance(latitude, longitude, distance);
+		return noteRepository.getAllNotesWithinDistance(noteRequest.getLatitude(), noteRequest.getLongitude(), noteRequest.getDistance());
 	}
 
 	@Path("/importXml")
@@ -77,7 +61,7 @@ public class NoteRestService
 	public List<Note> importXml(@QueryParam("password") String text)
 	{
 		if (text.equals("tempbiglongpasswordforimportxml"))// should put this in
-															// config. Doesnt
+															// config. Doesn't
 															// matter files are
 															// deleted after
 															// import
