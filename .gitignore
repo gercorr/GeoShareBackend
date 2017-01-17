@@ -10,3 +10,4 @@ buildNumber.properties
 src/main/webapp/WEB-INF/web.xml
 src/main/resources/META-INF/persistence.xml
 .idea/
+*.iml
