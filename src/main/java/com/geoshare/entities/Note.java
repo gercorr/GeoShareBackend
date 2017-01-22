@@ -1,10 +1,6 @@
 package com.geoshare.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.hibernate.annotations.Index;
 
@@ -26,6 +22,10 @@ public class Note
 
 	@Index(name = "IDX_Longitude")
 	private double longitude;
+
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="user_id", referencedColumnName="id")
+	private User user;
 
 	public int getId()
 	{
@@ -66,5 +66,15 @@ public class Note
 	{
 		this.longitude = longitude;
 	}
+
+    public User getUser()
+    {
+        return user;
+    }
+
+    public void setUser(User user)
+    {
+        this.user = user;
+    }
 
 }
