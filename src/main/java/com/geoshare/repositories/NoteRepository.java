@@ -8,6 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import com.geoshare.entities.User;
 import org.springframework.stereotype.Service;
 
 import com.geoshare.entities.Note;
@@ -40,6 +41,18 @@ public class NoteRepository implements INoteRepository
 		Note singleNote = (Note) query.getSingleResult();
 		entityManager.close();
 		return singleNote;
+	}
+
+	public List<Note> getAllNotesForUser(User user)
+	{
+		EntityManager entityManager = emfactory.createEntityManager();
+		Query query = entityManager
+				.createQuery("Select e from Note e where e.user=:user ")
+				.setParameter("user", user);
+
+		List<Note> list = (List<Note>) query.getResultList();
+		entityManager.close();
+		return list;
 	}
 
 	public List<Note> getAllNotesWithinDistance(double latitude, double longitude, double distance)

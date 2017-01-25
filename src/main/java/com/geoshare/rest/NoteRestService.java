@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
+import com.geoshare.entities.User;
 import com.geoshare.pojos.NotesRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -53,6 +54,15 @@ public class NoteRestService
 	public List<Note> getAllNotesWithinDistance(NotesRequest noteRequest)
 	{
 		return noteRepository.getAllNotesWithinDistance(noteRequest.getLatitude(), noteRequest.getLongitude(), noteRequest.getDistance());
+	}
+
+	@Path("getAllNotesForUser")
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public List<Note> getAllNotesForUser(User user)
+	{
+		return noteRepository.getAllNotesForUser(user);
 	}
 
 	@Path("/importXml")
