@@ -9,6 +9,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import com.geoshare.entities.User;
+import com.geoshare.pojos.NotesRequest;
 import org.springframework.stereotype.Service;
 
 import com.geoshare.entities.Note;
@@ -55,19 +56,25 @@ public class NoteRepository implements INoteRepository
 		return list;
 	}
 
-	public List<Note> getAllNotesWithinDistance(double latitude, double longitude, double distance)
+	public List<Note> getAllNotesWithinDistance(NotesRequest noteRequest)
 	{
-		double xMinus02 = latitude - distance;
-		double xPlus02 = latitude + distance;
+		double xMinus02 = noteRequest.getLatitude() - noteRequest.getDistance();
+		double xPlus02 = noteRequest.getLatitude() + noteRequest.getDistance();
 
-		double yminus02 = longitude - distance;
-		double yPlus02 = longitude + distance;
+		double yminus02 = noteRequest.getLongitude() - noteRequest.getDistance();
+		double yPlus02 = noteRequest.getLongitude() + noteRequest.getDistance();
+
+		String nickname = noteRequest.getNickname();
 
 		EntityManager entityManager = emfactory.createEntityManager();
 		Query query = entityManager
-				.createQuery("Select e from Note e " + "where latitude between :xMinus02 and :xPlus02 "
-						+ "and longitude between :yminus02 and :yPlus02")
+				.createQuery("Select note from Note note " +
+						"inner join note.user user " +
+						"where :nickname is null or user.nickname=:nickname " +
+						"and note.latitude between :xMinus02 and :xPlus02 "
+						+ "and note.longitude between :yminus02 and :yPlus02 ")
 				.setParameter("xMinus02", xMinus02).setParameter("xPlus02", xPlus02).setParameter("yminus02", yminus02)
+				.setParameter("nickname", nickname)
 				.setParameter("yPlus02", yPlus02);
 
 		List<Note> list = (List<Note>) query.getResultList();

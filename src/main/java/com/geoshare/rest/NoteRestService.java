@@ -53,7 +53,7 @@ public class NoteRestService
 	@Consumes(MediaType.APPLICATION_JSON)
 	public List<Note> getAllNotesWithinDistance(NotesRequest noteRequest)
 	{
-		return noteRepository.getAllNotesWithinDistance(noteRequest.getLatitude(), noteRequest.getLongitude(), noteRequest.getDistance());
+		return noteRepository.getAllNotesWithinDistance(noteRequest);
 	}
 
 	@Path("getAllNotesForUser")
