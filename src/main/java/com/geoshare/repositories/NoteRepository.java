@@ -1,5 +1,6 @@
 package com.geoshare.repositories;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Singleton;
@@ -84,6 +85,8 @@ public class NoteRepository implements INoteRepository
 
 	public void SaveNote(Note note)
 	{
+		note.setCreatedDate(new Date());
+
 		EntityManager entityManager = emfactory.createEntityManager();
 		entityManager.getTransaction().begin();
 		entityManager.persist(note);

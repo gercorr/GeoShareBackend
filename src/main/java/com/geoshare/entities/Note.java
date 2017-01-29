@@ -4,6 +4,8 @@ import javax.persistence.*;
 
 import org.hibernate.annotations.Index;
 
+import java.util.Date;
+
 @Entity
 @org.hibernate.annotations.Table(appliesTo = "Note", indexes = {
 		@Index(name = "IDX_Location_Search", columnNames = { "latitude", "longitude" }) })
@@ -26,6 +28,9 @@ public class Note
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="user_id", referencedColumnName="id")
 	private User user;
+
+	@Index(name = "IDX_CreatedDate")
+	private Date createdDate;
 
 	public int getId()
 	{
@@ -77,4 +82,13 @@ public class Note
         this.user = user;
     }
 
+	public Date getCreatedDate()
+	{
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate)
+	{
+		this.createdDate = createdDate;
+	}
 }
