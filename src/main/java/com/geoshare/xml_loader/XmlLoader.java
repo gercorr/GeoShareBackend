@@ -76,7 +76,14 @@ public class XmlLoader
 						System.out.println("desc : " + text);
 
 						Note note = new Note();
-						note.setText(name);
+						if(text != "")
+						{
+							note.setText(text);
+						}
+						else
+						{
+							note.setText(name);
+						}
 						note.setLatitude(latitudeFloat);
 						note.setLongitude(longitudeFloat);
 						noteRepository.SaveNote(note);

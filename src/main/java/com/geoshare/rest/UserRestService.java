@@ -16,14 +16,23 @@ public class UserRestService {
     @Autowired
     private UserRepository userRepository;
 
-    @Path("updateAndRetrieveUser")
+    @Path("retrieveUser")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public User updateAndRetrieveUser(User user)
+    public User retrieveUser(User user)
     {
-        return userRepository.updateAndRetrieveUser(user);
+        return userRepository.retrieveUser(user);
     }
 
+
+    @Path("createUser")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public User createUser(User user)
+    {
+        return userRepository.createUser(user);
+    }
 
 }
