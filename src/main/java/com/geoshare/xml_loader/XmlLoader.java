@@ -1,8 +1,14 @@
 package com.geoshare.xml_loader;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 
 import javax.inject.Singleton;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -25,6 +31,13 @@ public class XmlLoader
 
 	@Autowired
 	private NoteRepository noteRepository;
+
+	private EntityManagerFactory emfactory;
+
+	public XmlLoader()
+	{
+		emfactory = Persistence.createEntityManagerFactory("Hibernate_JPA");
+	}
 
 	public void ImportFile()
 	{
@@ -49,7 +62,7 @@ public class XmlLoader
 				NodeList nList = doc.getElementsByTagName("wpt");
 
 				System.out.println("----------------------------");
-
+				ArrayList<Note> notes = new ArrayList<>();
 				for (int temp = 0; temp < nList.getLength(); temp++)
 				{
 
@@ -86,11 +99,24 @@ public class XmlLoader
 						}
 						note.setLatitude(latitudeFloat);
 						note.setLongitude(longitudeFloat);
-						noteRepository.SaveNote(note);
-
+						note.setCreatedDate(new Date());
+						notes.add(note);
 					}
 				}
 
+
+				EntityManager entityManager = emfactory.createEntityManager();
+				entityManager.getTransaction().begin();
+
+				for (Iterator<Note> it = notes.iterator(); it.hasNext();) {
+					Note note = it.next();
+
+					entityManager.persist(note);
+					entityManager.flush();
+					entityManager.clear();
+				}
+				entityManager.getTransaction().commit();
+				entityManager.close();
 				xmlFile.delete();
 
 			}

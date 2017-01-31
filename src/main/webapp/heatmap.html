@@ -1,0 +1,74 @@
+
+
+<!doctype html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <style>
+       #map {
+        height: 800px;
+        width: 800px;
+       }
+    </style>
+    <title>GeoShare - Heat Map</title>
+</head>
+
+
+<body>
+
+<ul>
+    <li><a href="rest/getAllNotes">Get Notes</a></li>
+</ul>
+<ul>
+    <li><a href="heatmap.html">Heat Map</a></li>
+</ul>
+<ul>
+    <li><a href="pointmap.html">Point Map</a></li>
+</ul>
+
+<h3>Heat Map</h3>
+<div id="map"></div>
+<script>
+      function initMap() {
+        var uluru = {lat: 53.410942, lng: -7.752007};
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 7,
+          center: uluru
+        });
+
+        var listOfLatLngs = [];
+
+        $.ajax({
+            url: "http://localhost:8080/rest/getAllNotes"
+        }).then(function(data) {
+            data.forEach(function(entry) {
+                console.log(entry);
+                var coords = {lat: entry.latitude, lng: entry.longitude};
+                //var marker = new google.maps.Marker({
+                //  position: coords,
+                //  map: map,
+                //  title: entry.text
+                //});
+                listOfLatLngs.push(new google.maps.LatLng(entry.latitude, entry.longitude));
+            });
+
+            heatmap = new google.maps.visualization.HeatmapLayer({
+              data: listOfLatLngs,
+              map: map
+            });
+
+        });
+      }
+    </script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCk11_lJEefVSFwKYkDqumROydP7PRV7yQ&libraries=visualization&callback=initMap">
+</script>
+
+</body>
+
+
+
+
+</body>
+</html>
