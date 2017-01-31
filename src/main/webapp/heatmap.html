@@ -40,7 +40,7 @@
         var listOfLatLngs = [];
 
         $.ajax({
-            url: "http://localhost:8080/rest/getAllNotes"
+            url: "rest/getAllNotes"
         }).then(function(data) {
             data.forEach(function(entry) {
                 console.log(entry);
