@@ -71,7 +71,7 @@ public class NoteRepository implements INoteRepository
 		Query query = entityManager
 				.createQuery("Select note from Note note " +
 						"inner join note.user user " +
-						"where :nickname is null or user.nickname=:nickname " +
+						"where (:nickname is null or user.nickname=:nickname) " +
 						"and note.latitude between :xMinus02 and :xPlus02 "
 						+ "and note.longitude between :yminus02 and :yPlus02 ")
 				.setParameter("xMinus02", xMinus02).setParameter("xPlus02", xPlus02).setParameter("yminus02", yminus02)
